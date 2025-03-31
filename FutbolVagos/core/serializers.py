@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Cliente, Sede, Cancha, Horario, Reservacion, Factura
+from .models import Cliente, Sede, Cancha, Reservacion, Factura, Trabajador
 
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,10 +16,10 @@ class CanchaSerializer(serializers.ModelSerializer):
         model = Cancha
         fields = '__all__'
 
-class HorarioSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Horario
-        fields = '__all__'
+# class HorarioSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Horario
+#         fields = '__all__'
 
 class ReservacionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,4 +29,9 @@ class ReservacionSerializer(serializers.ModelSerializer):
 class FacturaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Factura
+        fields = '__all__'
+
+class TrabajadorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trabajador
         fields = '__all__'

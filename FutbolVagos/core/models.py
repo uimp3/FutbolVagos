@@ -39,7 +39,7 @@ class Cancha(models.Model):
 class Trabajador(models.Model):
     sede = models.ForeignKey(Sede, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=255)
-    ROLES_CHOICES = [("Administrador", "Administrador"), ("Mantenimiento", "Mantenimiento"), ("Recepcionista", "Recepcionista")]
+    ROLES_CHOICES = [("Administrador", "Administrador"), ("Mantenimiento", "Mantenimiento"), ("Recepcionista", "Recepcionista"), ("Vigilante", "Vigilante")]
     cargo = models.CharField(max_length=100, choices=ROLES_CHOICES,)
     cedula = models.CharField(max_length=20, unique=True)
     telefono = models.CharField(max_length=15, blank=True, null=True)
@@ -56,22 +56,24 @@ class Trabajador(models.Model):
     def __str__(self):
         return self.nombre
 
-class Horario(models.Model):
-    cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
-    hora_inicio = models.TimeField()
-    hora_fin = models.TimeField()
-    dia_semana = models.CharField(max_length=20)
-    disponible = models.BooleanField(default=True)
+# class Horario(models.Model):
+#     cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
+#     hora_inicio = models.TimeField()
+#     hora_fin = models.TimeField()
+#     dia_semana = models.CharField(max_length=20)
+#     disponible = models.BooleanField(default=True)
 
-    def __str__(self):
-        return f"Horario {self.id} - {self.dia_semana}"
+#     def __str__(self):
+#         return f"Horario {self.id} - {self.dia_semana}"
 
 
 class Reservacion(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
-    horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
-    fecha_reserva = models.DateField()
+    # horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
+    # fecha = models.DateTimeField()
+    fecha = models.DateField()
+    hora = models.TimeField()
     estado = models.CharField(max_length=50, choices=[("Confirmada", "Confirmada"), ("Cancelada", "Cancelada"), ("Pagada", "Pagada")])
     monto_total = models.DecimalField(max_digits=10, decimal_places=2)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
