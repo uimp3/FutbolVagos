@@ -58,7 +58,69 @@ Si es la primera vez que estas ejecutando el proyecto, debes construir los conte
 ```bash
 docker-compose up --build -d
 ```
+
+
 Si ya tienes las imágenes descargadas previamente si las acabas de crear ejecuta este comando:
 ```bash
 docker-compose up -d
 ```
+
+### **3. Uso de la web**
+---
+
+
+#### **a. Con “admin” de Django **
+Primero se debe crear un superusuario, esto se hará con el comando:
+```bash 
+docker-compose exec web python manage.py createsuperuser
+```
+Una vez hecho eso ya se puede redirigir al url:
+```bash
+http://localhost:8000/admin/
+```
+
+
+Donde se puede digitar el usuario previamente creador
+
+
+#### **b. Con “swagger” **
+Se debe dirigir el usuario a la siguiente ruta
+```bash
+http://localhost:8000/api/swagger/
+```
+
+
+## **Capturas de los endpoints documentados**
+Contamos con 6 models que llevan los diferentes tipos de endpoints:
+
+Para canchas tenemos los siguientes endpoints:
+
+![image](https://github.com/user-attachments/assets/1f992451-277d-4435-95f6-d8753c8678b4)
+
+
+Para la parte de clientes se tiene los endpoints de:
+
+![image](https://github.com/user-attachments/assets/1899e6a1-4883-4448-95f3-68ea417803cf)
+
+
+Para Facturas contamos con los siguientes endpoints:
+
+![image](https://github.com/user-attachments/assets/027de35a-bdee-433a-bac4-72dc54789c20)
+
+
+Para reservaciones tenemos también los endpoints de:
+
+![image](https://github.com/user-attachments/assets/7bff39bd-188d-4475-bea1-9869b7c5a379)
+
+
+Para sedes contamos con los endpoints de:
+
+![image](https://github.com/user-attachments/assets/639c9e17-2c67-4021-aa34-5246ad3f7da5)
+
+
+Y por último los endpoints de los trabajadores son:
+
+![image](https://github.com/user-attachments/assets/290cd393-a9f6-4d9d-ba6e-37e0805934fc)
+
+
+
