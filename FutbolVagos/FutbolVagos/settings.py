@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -76,14 +77,25 @@ WSGI_APPLICATION = 'FutbolVagos.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'futbolvagosdb',
+#         'USER': 'admin',
+#         'PASSWORD': '123',
+#         'HOST': 'localhost',
+#         'PORT': '5432', 
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'futbolvagosdb',
-        'USER': 'admin',
-        'PASSWORD': '123',
-        'HOST': 'localhost',
-        'PORT': '5432', 
+        'NAME': os.getenv('DB_NAME', 'futbolvagosdb'),
+        'USER': os.getenv('DB_USER', 'admin'),
+        'PASSWORD': os.getenv('DB_PASSWORD', '123'),
+        'HOST': os.getenv('DB_HOST', 'db'),  # Aquí cambiamos 'localhost' por 'db'
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
