@@ -72,8 +72,8 @@ class Reservacion(models.Model):
     cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
     # horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
     # fecha = models.DateTimeField()
-    fecha = models.DateField()
-    hora = models.TimeField()
+    fecha = models.DateField() #fecha reservacion
+    hora = models.TimeField() #hora inicio
     estado = models.CharField(max_length=50, choices=[("Confirmada", "Confirmada"), ("Cancelada", "Cancelada"), ("Pagada", "Pagada")])
     monto_total = models.DecimalField(max_digits=10, decimal_places=2)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
