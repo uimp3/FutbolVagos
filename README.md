@@ -50,7 +50,7 @@ git clone https://github.com/uimp3/FutbolVagos.git
 
 Luego dirígete a esta ruta
 ```bash
-cd FutbolVagos
+cd FutbolVagos/FutbolVagos
 ```
 
 ### **2. Construir contenedores en docker**
