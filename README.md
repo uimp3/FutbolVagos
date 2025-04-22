@@ -66,7 +66,7 @@ docker-compose up -d
 ```
 
 ### **3. Uso de la web**
----
+
 
 
 #### **a. Con “admin” de Django **
@@ -124,3 +124,19 @@ Y por último los endpoints de los trabajadores son:
 
 
 
+---
+
+
+## **Implementación de Keycloak**
+
+Se descarga la imagen desde el repositorio
+
+```bash
+docker pull quay.io/keycloak/keycloak:latest 
+```
+
+Se inicia en contenedor
+
+```bash
+docker run -d --name keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev
+```
