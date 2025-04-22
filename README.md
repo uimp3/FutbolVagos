@@ -140,3 +140,39 @@ Se inicia en contenedor
 ```bash
 docker run -d --name keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev
 ```
+
+Se dirige a la ruta con el puerto que se configuro para KeyCloak 
+```bash
+http://localhost:8080/
+```
+y se accede con el usuario "admin" y contraseña "admin"
+
+![image](https://github.com/user-attachments/assets/1556cb4e-93c8-4758-9839-e8a614d2bbdf)
+
+
+Primero se debe crear un Realm en el apartado de Manage realms
+
+![image](https://github.com/user-attachments/assets/41992a11-6724-48bb-b250-3fa6443cedcf)
+
+Dentro de este realm creamos:
+
+Un cliente con la siguiente configuración:
+![image](https://github.com/user-attachments/assets/7d2d99d8-29b2-4980-9ac2-618e99965be1)
+![image](https://github.com/user-attachments/assets/8f468da8-2cb0-4fe6-8286-84fb54fdca8b)
+![image](https://github.com/user-attachments/assets/e41c2aba-626f-41c4-a0d1-ca20502a7bf1)
+
+Un usuario con la siguiente configuración y su contraseña en el apartado de credentials
+![image](https://github.com/user-attachments/assets/0ae12221-771a-43f5-9ffc-e337429276c4)
+![image](https://github.com/user-attachments/assets/2d194c8b-78f4-4f69-a2c5-500e55637b9a)
+
+Para hacer obtener el token mediante postman debemos copiar el client secret
+![image](https://github.com/user-attachments/assets/3ac9f433-834d-47cf-951c-5b2c68e26731)
+
+Y establecer esta configuracion para obtener un token con POST en postman
+![image](https://github.com/user-attachments/assets/53f52b36-42e6-4af3-a491-58dab947d39e)
+![image](https://github.com/user-attachments/assets/7f8721ae-0659-432c-87c8-11e3f807e9b5)
+
+Y con esto ya se puede comprobar el correcto uso de keycloak en la API
+
+
+
