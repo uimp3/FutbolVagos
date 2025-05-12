@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 
-from FutbolVagos.core.authentication import KeycloakAuthentication
+from FutbolVagos.authentication import KeycloakAuthentication
 from .models import Cliente, Sede, Cancha, Reservacion, Factura, Trabajador
 from .serializers import ClienteSerializer, SedeSerializer, CanchaSerializer, ReservacionSerializer, FacturaSerializer, TrabajadorSerializer
 from .utils import keycloak_protect
