@@ -30,5 +30,17 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:5.5.0
+    container_name: keycloak
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
 volumes:
   postgres_data:

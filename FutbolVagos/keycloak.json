@@ -1,0 +1,10 @@
+{  
+    "realm": "futbolvagos",  
+    "auth-server-url": "http://keycloak-server/auth",  
+    "ssl-required": "external",  
+    "resource": "django-backend",  
+    "credentials": {  
+        "secret": "nC4IyRKlU1bSFPViJ9v3nKv0JwEVn2P2"  
+    },  
+    "confidential-port": 0  
+}
