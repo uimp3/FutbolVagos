@@ -43,11 +43,13 @@ INSTALLED_APPS = [
     'drf_yasg',
 ]
 
- 
-KEYCLOAK_SERVER_URL = 'http://localhost:8000/auth'  
-KEYCLOAK_REALM = 'futbolvagos'  
-KEYCLOAK_CLIENT_ID = 'django-backend'  
-KEYCLOAK_CLIENT_SECRET = 'nC4IyRKlU1bSFPViJ9v3nKv0JwEVn2P2'
+KEYCLOAK_CONFIG = {
+    'SERVER_URL': 'http://keycloak:8080',
+    'REALM': 'futbolvagos',
+    'CLIENT_ID': 'django-backend',
+    'CLIENT_SECRET': 'GYkY6SGV8bOH2ND34oh2jx7lWD4uTJmX',
+    'PUBLIC_KEY': """MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArga273gIxWnVC/rGVTm3YIMLZSSy40pPyEDciO9SqIa1vHA/W63ECI2lPA/kITHcrsTY26wZcRQV18FvDku7SG9ZFNaiRdr8MIHSA/X4prCx94XlwrR7kzw0cPCuXHlgRmF1iEIEFB+VN6JkhGfp+Mc8HEVTtxxDQvukXU5Qxti6TFVXUqDXXXTi0zknEIdSUXk9kPwfDWk+BAp2IkWqNdRkWBZiFF/18fJmodGxPkV5kSQxDWua5+3/7C1rPZLiJ2PoDHfTrLhjt11Dqq62aTBjFKFgPlBCCXVy5uBHrhQmPCs5YACLSGJz6NQfBzODtLTwfREP4QvQItHPPtmgMwIDAQAB"""
+}
 
 AUTHENTICATION_BACKENDS = [  
     'myapp.keycloak_backend.KeycloakBackend',  
@@ -153,6 +155,45 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {  
     'DEFAULT_AUTHENTICATION_CLASSES': [  
-        'FutbolVagos.authentication.KeycloakAuthentication',  
+        'authentication.KeycloakAuthentication',  
     ],  
+}
+
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'authentication': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'core': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
 }

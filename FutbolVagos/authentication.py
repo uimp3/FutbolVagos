@@ -5,20 +5,19 @@ from jose import jwt
 from jose.exceptions import JWTError
 import requests
 import logging
+from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
 class KeycloakAuthentication(BaseAuthentication):
     def __init__(self):
         self.config = settings.KEYCLOAK_CONFIG
-        # Asegurarnos de que la clave pública esté en el formato correcto
         self.public_key = self.config['PUBLIC_KEY'].strip()
         if not self.public_key.startswith('-----BEGIN PUBLIC KEY-----'):
             self.public_key = f"-----BEGIN PUBLIC KEY-----\n{self.public_key}\n-----END PUBLIC KEY-----"
         logger.info("KeycloakAuthentication initialized")
 
     def authenticate(self, request):
-        # Obtener el token del encabezado Authorization
         auth_header = request.META.get('HTTP_AUTHORIZATION', '')
         if not auth_header or not auth_header.startswith('Bearer '):
             return None
@@ -27,10 +26,10 @@ class KeycloakAuthentication(BaseAuthentication):
         logger.info("Processing token authentication")
 
         try:
-            # Primero decodificar sin verificar para debug
+            # Decodificar el token sin verificar para debug
             unverified_token = jwt.decode(
-                token,
-                None,
+                token, 
+                None, 
                 options={
                     "verify_signature": False,
                     "verify_aud": False,
@@ -39,7 +38,7 @@ class KeycloakAuthentication(BaseAuthentication):
             )
             logger.debug("Token claims: %s", unverified_token)
 
-            # Validar el token usando la clave pública
+            # Validar el token
             decoded_token = jwt.decode(
                 token,
                 self.public_key,
@@ -51,36 +50,28 @@ class KeycloakAuthentication(BaseAuthentication):
                 }
             )
 
-            # Verificar que el azp coincida con nuestro client_id
-            if decoded_token.get('azp') != self.config['CLIENT_ID']:
-                logger.error("Token azp does not match client_id. Expected %s, got %s", 
-                           self.config['CLIENT_ID'], decoded_token.get('azp'))
-                raise AuthenticationFailed("Invalid token: Unauthorized client")
-
-            # Obtener el nombre de usuario del token
+            # Extraer información del usuario
             username = decoded_token.get('preferred_username')
-            if not username:
-                logger.error("No username found in token")
-                raise AuthenticationFailed("Invalid token: No username found")
+            email = decoded_token.get('email')
+            
+            # Crear o actualizar usuario en Django
+            user, created = User.objects.get_or_create(
+                username=username,
+                defaults={'email': email}
+            )
 
+            # Almacenar el token decodificado en la request
+            request.auth = decoded_token
             logger.info(f"Authentication successful for user: {username}")
             
-            # Crear un objeto User simple con la información necesaria
-            user = type('User', (), {
-                'username': username,
-                'email': decoded_token.get('email', ''),
-                'is_authenticated': True,
-                'token': decoded_token
-            })
-
             return (user, None)
 
         except JWTError as e:
-            logger.error("JWT validation error: %s", str(e))
-            raise AuthenticationFailed(f"Invalid token: {str(e)}")
+            logger.error(f"JWT validation error: {str(e)}")
+            raise AuthenticationFailed(f"Token inválido: {str(e)}")
         except Exception as e:
-            logger.error("Authentication error: %s", str(e))
-            raise AuthenticationFailed(f"Authentication failed: {str(e)}")
+            logger.error(f"Authentication error: {str(e)}")
+            raise AuthenticationFailed(f"Error de autenticación: {str(e)}")
 
     def authenticate_header(self, request):
-        return 'Bearer realm="futbolvagos"'
+        return 'Bearer realm="futbolvagos"' 
