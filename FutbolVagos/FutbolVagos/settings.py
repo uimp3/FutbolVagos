@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'keycloak_oidc.middleware.OIDCMiddleware', 
+    #'keycloak_oidc.middleware.OIDCMiddleware', 
 ]
 
 ROOT_URLCONF = 'FutbolVagos.urls'
