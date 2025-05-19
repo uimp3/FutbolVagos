@@ -31,6 +31,17 @@ services:
       - DB_PORT=5432
     restart: always
 
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: angular_frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - web
+    restart: always
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.2.0
     container_name: keycloak
