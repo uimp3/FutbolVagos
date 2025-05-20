@@ -32,10 +32,11 @@ router.register(r'reservaciones', ReservacionViewSet)
 router.register(r'facturas', FacturaViewSet)
 router.register(r'trabajadores', TrabajadorViewSet)
 
-urlpatterns = [path('api/', include(router.urls)), # Incluye las rutas de la API REST
-               # Swagger URLs
-               re_path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'), # se usa un repath porque tiene expresiones regulares como el formato json o yaml
-               path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-               path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-               ]
+urlpatterns = [
+    path('', include(router.urls)), # Incluye las rutas de la API REST
+    # Swagger URLs
+    re_path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+]
 

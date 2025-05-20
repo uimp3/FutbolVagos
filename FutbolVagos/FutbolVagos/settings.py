@@ -43,6 +43,19 @@ INSTALLED_APPS = [
     'drf_yasg',
 ]
 
+KEYCLOAK_CONFIG = {
+    'SERVER_URL': 'http://keycloak:8080',
+    'REALM': 'futbolvagos',
+    'CLIENT_ID': 'django_backend',
+    'CLIENT_SECRET': 'qEYcpeoCMzM1XyPkoB2dFgBzaURsNmdU',
+    'PUBLIC_KEY': """MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0eybZ9OTDeZTKxmLRSFHDe4TfEjl0WClhelL+bJ/doLEFPLPuKz3ateRpx/nVCEk2ze4vAearz+WJT7t9PI5AOOzwBq+3yO7rOafdOfAyJq/W+wmFl99LovBP5J6YE44FWazE5h2YJNChJSuqxMN9Bu5GcU91DifSxYkOxeVcd1E0bOfEKWyCxQjtIH8yOhYzOOQSpboxDdMu7VspZqxAJo/rXU9ZQ8FjyJX4RO+4Ul4SQlc1ztDDhbXDxVuOBVPlWN+qm4y2HxGvY92MvGSF4fBmqDC2FTYggH1sbz2OUgEVWIDsyKZ4IuIvJM5oEV5l3QIzf2SBxQO2VT1wOC5pQIDAQAB"""
+}
+
+AUTHENTICATION_BACKENDS = [  
+    #'core.keycloak_backend.KeycloakBackend',  
+    'django.contrib.auth.backends.ModelBackend',  
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'keycloak_oidc.middleware.OIDCMiddleware', 
 ]
 
 ROOT_URLCONF = 'FutbolVagos.urls'
@@ -139,3 +153,47 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {  
+    'DEFAULT_AUTHENTICATION_CLASSES': [  
+        'authentication.KeycloakAuthentication',  
+    ],  
+}
+
+# Logging configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'authentication': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'core': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

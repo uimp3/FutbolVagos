@@ -5,6 +5,9 @@ ENV/
 .venv/
 .ENV/
 # Python bytecode files
+FutbolVagos\FutbolVagos\__pycache__
+core/__pycache__/views.cpython-311.pyc
+FutbolVagos\core\__pycache__
 __pycache__/
 *.pyc
 *.py[cod]
