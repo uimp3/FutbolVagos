@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
+import { SedeListComponent } from './features/sedes/sede-list/sede-list.component';
+import { SedeFormComponent } from './features/sedes/sede-form/sede-form.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +19,17 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
+      },
+      {
+        path: 'sedes',
+        data: {
+          title: 'Gestión de Sedes'
+        },
+        children: [
+          { path: '', component: SedeListComponent },
+          { path: 'new', component: SedeFormComponent },
+          { path: ':id/edit', component: SedeFormComponent }
+        ]
       },
       {
         path: 'theme',

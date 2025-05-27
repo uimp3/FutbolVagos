@@ -1,5 +1,6 @@
 import { INavData } from '@coreui/angular';
 
+// Array que define la estructura del menú de navegación
 export const navItems: INavData[] = [
   {
     name: 'Dashboard',
@@ -9,6 +10,41 @@ export const navItems: INavData[] = [
       color: 'info',
       text: 'NEW'
     }
+  },
+  // Separador con título para la sección de gestión
+  {
+    title: true,
+    name: 'Gestión'
+  },
+  // Elemento del menú para Gestión de Sedes
+  {
+    name: 'Gestión de Sedes',    // Nombre que aparece en el menú
+    url: '/sedes',               // URL a la que navegará
+    iconComponent: { name: 'cil-notes' }, // Icono que se muestra
+    badge: {                     // Insignia opcional (puedes removerla si no la necesitas)
+      color: 'info',
+      text: 'NEW'
+    }
+  },
+  {
+    name: 'Gestión de Canchas',    // Nombre que aparece en el menú
+    url: '/canchas',               // URL a la que navegará
+    iconComponent: { name: 'cil-notes' }, // Icono que se muestra
+    
+  },
+  {
+    title: true,
+    name: 'Reservaciones'
+  },
+  {
+    name: 'Reservacion',    // Nombre que aparece en el menú
+    url: '/reservaciones',               // URL a la que navegará
+    iconComponent: { name: 'cil-notes' }, // Icono que se muestra
+  },
+  {
+    name: 'Facturacion',    // Nombre que aparece en el menú
+    url: '/factura',               // URL a la que navegará
+    iconComponent: { name: 'cil-pencil' }, // Icono que se muestra
   },
   {
     title: true,
