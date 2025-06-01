@@ -20,26 +20,23 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
-    canActivate: [authGuard],
     children: [
-      {
-        path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes),
-        data: {
-          title: 'Dashboard'
-        }
-      },
-      {
-        path: 'sedes',
-        data: {
-          title: 'Gestión de Sedes'
-        },
-        children: [
-          { path: '', component: SedeListComponent },
-          { path: 'new', component: SedeFormComponent },
-          { path: ':id/edit', component: SedeFormComponent }
-        ]
-      },
+    {
+      path: 'dashboard',
+      canActivate: [authGuard],
+      loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes),
+      data: { title: 'Dashboard' }
+    },
+    {
+      path: 'sedes',
+      canActivate: [authGuard],
+      data: { title: 'Gestión de Sedes' },
+      children: [
+        { path: '', component: SedeListComponent },
+        { path: 'new', component: SedeFormComponent },
+        { path: ':id/edit', component: SedeFormComponent }
+      ]
+    },
       {
         path: 'theme',
         loadChildren: () => import('./views/theme/routes').then((m) => m.routes)
@@ -101,6 +98,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: '404'
   }
 ];
