@@ -1,138 +1,111 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { tap, catchError, finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import Keycloak from 'keycloak-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private isVerifyingSubject = new BehaviorSubject<boolean>(false);
-  public isVerifying$ = this.isVerifyingSubject.asObservable();
-
+  private keycloak: Keycloak.KeycloakInstance;
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  private isVerifyingSubject = new BehaviorSubject<boolean>(false);
 
-  private isVerifying = false;
+  isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  isVerifying$ = this.isVerifyingSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    console.log('AuthService: Inicializando servicio');
-    const token = this.getToken();
-    if (token && this.isValidToken(token)) {
-      this.isAuthenticatedSubject.next(true);
-    } else {
-      this.isAuthenticatedSubject.next(false);
-    }
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('access_token');
-  }
-
-  isValidToken(token: string): boolean {
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const now = Math.floor(Date.now() / 1000);
-      return payload.exp > now;
-    } catch (e) {
-      console.warn('AuthService: Token inválido:', e);
-      return false;
-    }
-  }
-
-  isAuthenticated(): boolean {
-    const token = this.getToken();
-    return token ? this.isValidToken(token) : false;
-  }
-
-  verifyToken(token: string): Observable<any> {
-    if (this.isVerifying) {
-      console.log('AuthService: Ya hay una verificación en curso');
-      return throwError(() => new Error('Ya hay una verificación en curso'));
-    }
-
-    this.isVerifying = true;
-    this.isVerifyingSubject.next(true);
-    console.log('AuthService: Verificando token');
-
-    return this.http.get(`${environment.apiUrl}/futbolvagos/`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).pipe(
-      tap(() => {
-        console.log('AuthService: Token verificado exitosamente');
-        this.isAuthenticatedSubject.next(true);
-      }),
-      catchError(error => {
-        console.error('AuthService: Error verificando token:', error);
-        this.logout();
-        return throwError(() => error);
-      }),
-      finalize(() => {
-        this.isVerifying = false;
-        this.isVerifyingSubject.next(false);
-      })
-    );
-  }
-
-  login(code: string): Observable<void> {
-    console.log('AuthService: Iniciando proceso de login con código');
-    const { redirectUri, clientId, clientSecret, url, realm } = environment.keycloak;
-    const codeVerifier = localStorage.getItem('code_verifier');
-
-    if (!codeVerifier) {
-      console.error('AuthService: No se encontró el code_verifier');
-      return throwError(() => new Error('No se encontró el code_verifier'));
-    }
-
-    const body = new URLSearchParams({
-      grant_type: 'authorization_code',
-      client_id: clientId,
-      client_secret: clientSecret,
-      code: code,
-      redirect_uri: redirectUri,
-      code_verifier: codeVerifier
+  constructor(private router: Router) {
+    this.keycloak = new (Keycloak as any)({
+      url: environment.keycloak.url,
+      realm: environment.keycloak.realm,
+      clientId: environment.keycloak.clientId
     });
 
-    return this.http.post<any>(`${url}/realms/${realm}/protocol/openid-connect/token`,
-      body.toString(),
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Accept': 'application/json'
-        }
-      }
-    ).pipe(
-      tap(response => {
-        console.log('AuthService: Respuesta de token recibida');
-        if (!response.access_token) {
-          throw new Error('No se recibió access_token en la respuesta');
-        }
-        localStorage.setItem('access_token', response.access_token);
-        if (response.refresh_token) {
-          localStorage.setItem('refresh_token', response.refresh_token);
-        }
-        this.isAuthenticatedSubject.next(true);
-        localStorage.removeItem('code_verifier');
-        console.log('AuthService: Token almacenado y estado actualizado');
-      }),
-      catchError(error => {
-        console.error('AuthService: Error en el login:', error);
-        localStorage.removeItem('code_verifier');
-        return throwError(() => error);
-      }),
-      // El observable emite void (no valores)
-      tap(() => {}),
-    );
+    // Inicializar Keycloak al crear el servicio
+    this.initKeycloak();
   }
 
-  logout(): void {
-    console.log('AuthService: Logout ejecutado');
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    this.isAuthenticatedSubject.next(false);
-    location.href = environment.keycloak.logoutUrl;
+  private async initKeycloak(): Promise<void> {
+    try {
+      // Verificar si hay un código de autorización en la URL
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const code = params.get('code');
+      const state = params.get('state');
+      const sessionState = params.get('session_state');
+
+      if (code) {
+        console.log('Código de autorización recibido, procesando...');
+        // Inicializar Keycloak con el código
+        const initResult = await this.keycloak.init({
+          onLoad: 'check-sso',
+          checkLoginIframe: false
+        });
+
+        if (initResult) {
+          console.log('Autenticación exitosa');
+          this.isAuthenticatedSubject.next(true);
+          // Limpiar la URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+          // Redirigir al dashboard
+          await this.router.navigate(['/dashboard']);
+        } else {
+          console.log('No autenticado');
+          this.isAuthenticatedSubject.next(false);
+          await this.router.navigate(['/dashboard']);
+        }
+      } else {
+        // Inicialización normal sin código
+        const initResult = await this.keycloak.init({
+          onLoad: 'check-sso',
+          checkLoginIframe: false
+        });
+        this.isAuthenticatedSubject.next(!!initResult);
+      }
+    } catch (error) {
+      console.error('Error al inicializar Keycloak:', error);
+      this.isAuthenticatedSubject.next(false);
+      await this.router.navigate(['/dashboard']);
+    }
+  }
+
+  async login(): Promise<void> {
+    try {
+      console.log('Iniciando login...');
+      await this.keycloak.login({
+        redirectUri: window.location.origin + '/login'
+      });
+    } catch (error) {
+      console.error('Error en login:', error);
+      this.isAuthenticatedSubject.next(false);
+      throw error;
+    }
+  }
+
+  async logout(): Promise<void> {
+    try {
+      await this.keycloak.logout({
+        redirectUri: window.location.origin + '/login'
+      });
+      this.isAuthenticatedSubject.next(false);
+    } catch (error) {
+      console.error('Error en logout:', error);
+      throw error;
+    }
+  }
+
+  getToken(): string | undefined {
+    return this.keycloak.token;
+  }
+
+  isLoggedIn(): boolean {
+    return this.isAuthenticatedSubject.value;
+  }
+
+  // Método para verificar si la URL actual es la de login
+  isLoginPage(): boolean {
+    return window.location.pathname === '/login';
   }
 }
+
