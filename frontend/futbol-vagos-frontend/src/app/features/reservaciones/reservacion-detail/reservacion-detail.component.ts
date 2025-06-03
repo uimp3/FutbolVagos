@@ -46,7 +46,7 @@ import { ReservacionDetail } from '../../../core/models/reservacion.model';
                   </span>
                 </dd>
 
-                <dt class="col-sm-4">Monto Total:</dt>
+                <dt class="col-sm-4">Monto de reserva:</dt>
                 <dd class="col-sm-8">{{reservacion?.monto_total | currency}}</dd>
 
                 <dt class="col-sm-4">Fecha Creación:</dt>

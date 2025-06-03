@@ -84,14 +84,39 @@ import { Sede } from '../../../core/models/sede.model';
 
         <!-- Botones de acción -->
         <div class="col-12">
-          <button type="submit" class="btn btn-action me-2" [disabled]="canchaForm.invalid">
+          <button type="submit" class="btn btn-success me-2" [disabled]="canchaForm.invalid">
             {{ isEditing ? 'Actualizar' : 'Guardar' }}
           </button>
           <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
         </div>
       </form>
     </div>
-  `
+  `,
+  styles: [`
+    /* Estilos para botón Guardar/Actualizar (verde) */
+    .btn-success {
+      background-color:rgb(65, 204, 89) !important; /* Verde */
+      border-color:rgb(65, 204, 89) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-success:hover {
+      background-color: rgb(40, 164, 60) !important; /* Verde más oscuro al pasar el mouse */
+      border-color: rgb(40, 164, 60) !important;
+    }
+
+    /* Estilos para botón Cancelar (secundario) */
+    .btn-secondary {
+        background-color: #6c757d !important; /* Gris */
+        border-color: #6c757d !important;
+        color: #ffffff !important;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5c636a !important; /* Gris más oscuro */
+        border-color: #5c636a !important;
+    }
+  `]
 })
 export class CanchaFormComponent implements OnInit {
   canchaForm: FormGroup;
