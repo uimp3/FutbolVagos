@@ -8,7 +8,7 @@ import { Reservacion, ReservacionDetail } from '../models/reservacion.model';
   providedIn: 'root'
 })
 export class ReservacionService {
-  private apiUrl = `${environment.apiUrl}/reservaciones`;
+  private apiUrl = `${environment.apiUrl}/reservaciones/`;
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class ReservacionService {
 
   // Obtener una reservacion por ID
   getReservacion(id: number): Observable<ReservacionDetail> {
-    return this.http.get<ReservacionDetail>(`${this.apiUrl}/${id}`);
+    return this.http.get<ReservacionDetail>(`${this.apiUrl}${id}/`);
   }
 
   // Crear una nueva reservacion
@@ -28,17 +28,37 @@ export class ReservacionService {
   }
 
   // Actualizar una reservacion existente
-  updateReservacion(id: number, reservacion: Reservacion): Observable<Reservacion> {
-    return this.http.put<Reservacion>(`${this.apiUrl}/${id}`, reservacion);
+  updateReservacion(id: number, data: Partial<ReservacionDetail>): Observable<ReservacionDetail> {
+    console.log('Llamando a updateReservacion para ID:', id, 'con datos:', data);
+    return this.http.patch<ReservacionDetail>(`${this.apiUrl}${id}/`, data);
   }
 
   // Eliminar una reservacion
   deleteReservacion(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    console.log('Llamando a deleteReservacion para ID:', id);
+    return this.http.delete<void>(`${this.apiUrl}${id}/`);
   }
 
   // Buscar reservaciones por término
   searchReservaciones(termino: string): Observable<ReservacionDetail[]> {
-    return this.http.get<ReservacionDetail[]>(`${this.apiUrl}/search?q=${termino}`);
+    return this.http.get<ReservacionDetail[]>(`${this.apiUrl}search/?q=${termino}`);
+  }
+
+  // Obtener reservaciones por ID de cliente 
+  getReservacionesByCliente(clienteId: number): Observable<ReservacionDetail[]> {
+ 
+    return this.http.get<ReservacionDetail[]>(`${this.apiUrl}by_cliente/${clienteId}/`);
+  }
+
+
+  getWeeklyReservations(): Observable<ReservacionDetail[]> {
+    console.log('Llamando a getWeeklyReservations...');
+    
+
+    return new Observable<ReservacionDetail[]>(observer => {
+      console.log('getWeeklyReservations: Devolviendo datos de ejemplo/vacíos.');
+      observer.next([]); 
+      observer.complete();
+    });
   }
 }

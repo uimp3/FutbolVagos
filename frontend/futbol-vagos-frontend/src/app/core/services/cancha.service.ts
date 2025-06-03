@@ -8,7 +8,7 @@ import { Cancha, CanchaWithSede } from '../models/cancha.model';
   providedIn: 'root'
 })
 export class CanchaService {
-  private apiUrl = `${environment.apiUrl}/canchas`;
+  private apiUrl = `${environment.apiUrl}/canchas/`;
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class CanchaService {
 
   // Obtener una cancha por ID
   getCancha(id: number): Observable<CanchaWithSede> {
-    return this.http.get<CanchaWithSede>(`${this.apiUrl}/${id}`);
+    return this.http.get<CanchaWithSede>(`${this.apiUrl}${id}/`);
   }
 
   // Crear una nueva cancha
@@ -29,21 +29,21 @@ export class CanchaService {
 
   // Actualizar una cancha existente
   updateCancha(id: number, cancha: Cancha): Observable<Cancha> {
-    return this.http.put<Cancha>(`${this.apiUrl}/${id}`, cancha);
+    return this.http.put<Cancha>(`${this.apiUrl}${id}/`, cancha);
   }
 
   // Eliminar una cancha
   deleteCancha(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}${id}/`);
   }
 
   // Buscar canchas por término
   searchCanchas(termino: string): Observable<CanchaWithSede[]> {
-    return this.http.get<CanchaWithSede[]>(`${this.apiUrl}/search?q=${termino}`);
+    return this.http.get<CanchaWithSede[]>(`${this.apiUrl}search/?q=${termino}`);
   }
 
   // Obtener canchas por sede
   getCanchasBySede(sedeId: number): Observable<CanchaWithSede[]> {
-    return this.http.get<CanchaWithSede[]>(`${this.apiUrl}/sede/${sedeId}`);
+    return this.http.get<CanchaWithSede[]>(`${this.apiUrl}/sede/${sedeId}/`);
   }
 }

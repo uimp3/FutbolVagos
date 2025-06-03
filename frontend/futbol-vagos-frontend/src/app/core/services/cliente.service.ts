@@ -8,7 +8,7 @@ import { Cliente } from '../models/cliente.model';
   providedIn: 'root'
 })
 export class ClienteService {
-  private apiUrl = `${environment.apiUrl}/clientes`;
+  private apiUrl = `${environment.apiUrl}/clientes/`;
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class ClienteService {
 
   // Obtener un cliente por ID
   getCliente(id: number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.apiUrl}/${id}`);
+    return this.http.get<Cliente>(`${this.apiUrl}${id}/`);
   }
 
   // Crear un nuevo cliente
@@ -29,16 +29,16 @@ export class ClienteService {
 
   // Actualizar un cliente existente
   updateCliente(id: number, cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.apiUrl}/${id}`, cliente);
+    return this.http.put<Cliente>(`${this.apiUrl}${id}/`, cliente);
   }
 
   // Eliminar un cliente
   deleteCliente(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}${id}/`);
   }
 
   // Buscar clientes por término
   searchClientes(termino: string): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(`${this.apiUrl}/search?q=${termino}`);
+    return this.http.get<Cliente[]>(`${this.apiUrl}search/?q=${termino}`);
   }
 }
