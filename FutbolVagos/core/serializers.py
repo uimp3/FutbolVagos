@@ -25,12 +25,27 @@ class CanchaSerializer(serializers.ModelSerializer):
 
 class ReservacionSerializer(serializers.ModelSerializer):
     cliente_nombre = serializers.CharField(source='cliente.nombre', read_only=True)
+    cliente_cedula = serializers.CharField(source='cliente.cedula', read_only=True)
     cancha_nombre = serializers.CharField(source='cancha.id', read_only=True)
+    sede_nombre = serializers.CharField(source='cancha.sede.nombre', read_only=True)
     
     class Meta:
         model = Reservacion
-        fields = ['id', 'cliente', 'cliente_nombre', 'cancha', 'cancha_nombre', 'fecha', 'hora', 'estado', 'monto_total', 'fecha_creacion']
-        depth = 1
+        fields = [
+            'id', 
+            'cliente',
+            'cliente_nombre',
+            'cliente_cedula',
+            'cancha',
+            'cancha_nombre',
+            'sede_nombre',
+            'fecha', 
+            'hora', 
+            'estado', 
+            'monto_total', 
+            'fecha_creacion'
+        ]
+        read_only_fields = ['fecha_creacion', 'cliente_nombre', 'cliente_cedula', 'cancha_nombre', 'sede_nombre']
         
     def validate(self, data):
         instance = self.instance
@@ -40,7 +55,17 @@ class ReservacionSerializer(serializers.ModelSerializer):
         hora = data.get('hora')
         
         if cancha and fecha and hora:
-            queryset = Reservacion.objects.filter(cancha=cancha, fecha=fecha, hora=hora)
+            # Verificar si la cancha está disponible
+            if cancha.estado != 'Disponible':
+                raise serializers.ValidationError("La cancha no está disponible para reservas.")
+            
+            # Verificar si ya existe una reserva para esa cancha, fecha y hora
+            queryset = Reservacion.objects.filter(
+                cancha=cancha, 
+                fecha=fecha, 
+                hora=hora,
+                estado__in=['Confirmada', 'Pagada']  # Solo verificar reservas activas
+            )
 
             if instance:
                 queryset = queryset.exclude(pk=instance.pk)

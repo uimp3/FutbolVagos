@@ -70,8 +70,6 @@ class Trabajador(models.Model):
 class Reservacion(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     cancha = models.ForeignKey(Cancha, on_delete=models.CASCADE)
-    # horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
-    # fecha = models.DateTimeField()
     fecha = models.DateField() #fecha reservacion
     hora = models.TimeField() #hora inicio
     estado = models.CharField(max_length=50, choices=[("Confirmada", "Confirmada"), ("Cancelada", "Cancelada"), ("Pagada", "Pagada")])

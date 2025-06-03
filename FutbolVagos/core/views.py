@@ -103,38 +103,65 @@ class ReservacionViewSet(viewsets.ModelViewSet):
         responses={200: ReservacionSerializer(many=True)},  
     )
     def list(self, request, *args, **kwargs):
+        # Filtrar por fecha si se proporciona
+        fecha = request.query_params.get('fecha')
+        if fecha:
+            self.queryset = self.queryset.filter(fecha=fecha)
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_summary="Buscar reservaciones por nombre de cliente.",
-        operation_description="Busca reservaciones por el nombre del cliente.",
+        operation_summary="Buscar reservaciones por término.",
+        operation_description="Busca reservaciones por nombre de cliente, cédula o estado.",
         responses={200: ReservacionSerializer(many=True)},
     )
-
-    @action(detail=False, methods=['get'])
-    def list_by_cliente(self, request, cliente_id=None):
-        """
-        Obtiene las reservaciones 'Confirmada' de un cliente específico.
-        """
-        if cliente_id is not None:
-            # Filtra por cliente y estado 'Confirmada'
-            # Si el estado "pendiente de pago" es diferente, ajusta 'Confirmada'.
-            reservaciones = self.queryset.filter(cliente=cliente_id, estado='Confirmada')
-            serializer = self.get_serializer(reservaciones, many=True)
-            return Response(serializer.data)
-        else:
-            return Response({"detail": "Debe proporcionar un ID de cliente."}, status=400)
-
-    
     @action(detail=False, methods=['get'], url_path='search')
     def search(self, request):
         termino = request.query_params.get('q', '')
         if termino:
             reservaciones = Reservacion.objects.filter(
-                cliente__nombre__icontains=termino
+                Q(cliente__nombre__icontains=termino) |
+                Q(cliente__cedula__icontains=termino) |
+                Q(estado__icontains=termino)
             )
         else:
             reservaciones = Reservacion.objects.all()
+        serializer = self.get_serializer(reservaciones, many=True)
+        return Response(serializer.data)
+
+    @swagger_auto_schema(
+        operation_summary="Obtener reservaciones por cliente.",
+        operation_description="Obtiene las reservaciones de un cliente específico.",
+        responses={200: ReservacionSerializer(many=True)},
+    )
+    @action(detail=False, methods=['get'])
+    def list_by_cliente(self, request, cliente_id=None):
+        if cliente_id is not None:
+            reservaciones = self.queryset.filter(cliente=cliente_id)
+            serializer = self.get_serializer(reservaciones, many=True)
+            return Response(serializer.data)
+        return Response({"detail": "Debe proporcionar un ID de cliente."}, status=400)
+
+    @swagger_auto_schema(
+        operation_summary="Obtener reservaciones por cancha y fecha.",
+        operation_description="Obtiene las reservaciones de una cancha en una fecha específica.",
+        responses={200: ReservacionSerializer(many=True)},
+    )
+    @action(detail=False, methods=['get'])
+    def list_by_cancha_fecha(self, request):
+        cancha_id = request.query_params.get('cancha_id')
+        fecha = request.query_params.get('fecha')
+        
+        if not cancha_id or not fecha:
+            return Response(
+                {"detail": "Debe proporcionar cancha_id y fecha."}, 
+                status=400
+            )
+            
+        reservaciones = self.queryset.filter(
+            cancha=cancha_id,
+            fecha=fecha,
+            estado__in=['Confirmada', 'Pagada']
+        )
         serializer = self.get_serializer(reservaciones, many=True)
         return Response(serializer.data)
 
