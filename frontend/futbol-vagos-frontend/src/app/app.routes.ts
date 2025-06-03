@@ -11,7 +11,11 @@ import { CanchaDetailComponent } from './features/canchas/cancha-detail/cancha-d
 import { ReservacionListComponent } from './features/reservaciones/reservacion-list/reservacion-list.component';
 import { ReservacionFormComponent } from './features/reservaciones/reservacion-form/reservacion-form.component';
 import { ReservacionDetailComponent } from './features/reservaciones/reservacion-detail/reservacion-detail.component';
+import { FacturaListComponent } from './features/facturas/factura-list/factura-list.component';
+import { FacturaDetailComponent } from './features/facturas/factura-detail/factura-detail.component';
+import { FacturaFormComponent } from './features/facturas/factura-form/factura-form.component';
 import { authGuard } from './guards/auth.guard';
+import { TRABAJADORES_ROUTES } from './features/trabajadores/trabajadores.routes';
 
 export const routes: Routes = [
   {
@@ -84,6 +88,24 @@ export const routes: Routes = [
           { path: ':id', component: ReservacionDetailComponent },
           { path: ':id/edit', component: ReservacionFormComponent }
         ]
+      },
+      {
+        path: 'factura',
+        data: {
+          title: 'Gestión de Facturación'
+        },
+        children: [
+          { path: '', component: FacturaListComponent },
+          { path: 'new', component: FacturaFormComponent },
+          { path: ':id', component: FacturaDetailComponent }
+        ]
+      },
+      {
+        path: 'trabajadores',
+        data: {
+          title: 'Gestión de Trabajadores'
+        },
+        children: TRABAJADORES_ROUTES
       },
       {
         path: 'theme',

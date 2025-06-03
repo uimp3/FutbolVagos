@@ -54,7 +54,15 @@ import { Sede } from '../../../core/models/sede.model';
         <!-- Campo Horario de Apertura -->
         <div class="col-md-6">
           <label for="horario_apertura" class="form-label">Horario de Apertura</label>
-          <input type="time" class="form-control" id="horario_apertura" formControlName="horario_apertura">
+          <select
+            class="form-select"
+            id="horario_apertura"
+            formControlName="horario_apertura"
+            [ngClass]="{'is-invalid': sedeForm.get('horario_apertura')?.invalid && sedeForm.get('horario_apertura')?.touched}"
+          >
+            <option value="">Seleccione hora de apertura</option>
+            <option *ngFor="let hour of availableHours" [value]="hour">{{hour}}</option>
+          </select>
           <div class="text-danger" *ngIf="sedeForm.get('horario_apertura')?.errors?.['required'] && sedeForm.get('horario_apertura')?.touched">
             El horario de apertura es requerido
           </div>
@@ -63,7 +71,15 @@ import { Sede } from '../../../core/models/sede.model';
         <!-- Campo Horario de Cierre -->
         <div class="col-md-6">
           <label for="horario_cierre" class="form-label">Horario de Cierre</label>
-          <input type="time" class="form-control" id="horario_cierre" formControlName="horario_cierre">
+           <select
+            class="form-select"
+            id="horario_cierre"
+            formControlName="horario_cierre"
+            [ngClass]="{'is-invalid': sedeForm.get('horario_cierre')?.invalid && sedeForm.get('horario_cierre')?.touched}"
+          >
+            <option value="">Seleccione hora de cierre</option>
+            <option *ngFor="let hour of availableHours" [value]="hour">{{hour}}</option>
+          </select>
           <div class="text-danger" *ngIf="sedeForm.get('horario_cierre')?.errors?.['required'] && sedeForm.get('horario_cierre')?.touched">
             El horario de cierre es requerido
           </div>
@@ -71,12 +87,37 @@ import { Sede } from '../../../core/models/sede.model';
 
         <!-- Botones de acción -->
         <div class="col-12">
-          <button type="submit" class="btn btn-action me-2" [disabled]="sedeForm.invalid">Guardar</button>
+          <button type="submit" class="btn btn-success me-2" [disabled]="sedeForm.invalid">Guardar</button>
           <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
         </div>
       </form>
     </div>
-  `
+  `,
+  styles: [`
+    /* Estilos para botón Guardar (verde) */
+    .btn-success {
+      background-color: rgb(65, 204, 89) !important; /* Verde */
+      border-color: rgb(65, 204, 89) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-success:hover {
+      background-color: rgb(40, 164, 60) !important; /* Verde más oscuro al pasar el mouse */
+      border-color: rgb(40, 164, 60) !important;
+    }
+
+    /* Estilos para botón Cancelar (gris) */
+    .btn-secondary {
+      background-color: #6c757d !important; /* Gris */
+      border-color: #6c757d !important;
+      color: #ffffff !important;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5c636a !important; /* Gris más oscuro */
+      border-color: #5c636a !important;
+    }
+  `]
 })
 export class SedeFormComponent implements OnInit {
   // Formulario reactivo para manejar los datos
@@ -85,14 +126,15 @@ export class SedeFormComponent implements OnInit {
   isEditing = false;
   // ID de la sede en caso de edición
   sedeId?: number;
+  availableHours: string[] = []; // Lista de horas disponibles
 
   constructor(
-    private fb: FormBuilder,         // Para crear el formulario reactivo
-    private sedeService: SedeService, // Servicio para operaciones CRUD
-    private router: Router,          // Para la navegación
-    private route: ActivatedRoute    // Para obtener parámetros de la URL
+    private fb: FormBuilder,         
+    private sedeService: SedeService, 
+    private router: Router,          
+    private route: ActivatedRoute    
   ) {
-    // Inicialización del formulario con validaciones
+
     this.sedeForm = this.fb.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
@@ -109,6 +151,9 @@ export class SedeFormComponent implements OnInit {
     const paramId = this.route.snapshot.paramMap.get('id');
     if (paramId && !isNaN(+paramId)) {
       this.sedeId = +paramId;
+    this.generateAvailableHours(); // Generar las horas disponibles
+    this.sedeId = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.sedeId) {
       this.isEditing = true;
       this.loadSede();
     }
@@ -161,5 +206,13 @@ export class SedeFormComponent implements OnInit {
   // Cancela la operación y vuelve a la lista
   onCancel(): void {
     this.router.navigate(['/sedes']);
+  }
+
+  // Genera horas en formato HH:00
+  generateAvailableHours(): void {
+    for (let i = 0; i < 24; i++) {
+      const hour = i < 10 ? `0${i}` : `${i}`;
+      this.availableHours.push(`${hour}:00`);
+    }
   }
 } 

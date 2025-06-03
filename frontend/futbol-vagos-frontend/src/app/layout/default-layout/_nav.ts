@@ -24,11 +24,20 @@ export const navItems: INavData[] = [
   {
     name: 'Canchas',
     url: '/canchas',
-    iconComponent: { name: 'cil-basketball' }
+    iconComponent: { name: 'cil-football' },
   },
   {
     name: 'Clientes',
     url: '/clientes',
+    iconComponent: { name: 'cil-people' }
+  },
+  {
+    title: true,
+    name: 'Trabajadores'
+  },
+  {
+    name: 'Trabajadores',
+    url: '/trabajadores',
     iconComponent: { name: 'cil-people' }
   },
   {
@@ -41,9 +50,9 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-notes' }, // Icono que se muestra
   },
   {
-    name: 'Facturacion',    // Nombre que aparece en el menú
-    url: '/factura',               // URL a la que navegará
-    iconComponent: { name: 'cil-pencil' }, // Icono que se muestra
+    name: 'Facturacion',    
+    url: '/factura',              
+    iconComponent: { name: 'cil-pencil' }, 
   },
   {
     title: true,

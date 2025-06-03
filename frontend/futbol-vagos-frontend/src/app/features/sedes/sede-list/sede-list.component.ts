@@ -14,7 +14,7 @@ import { Sede } from '../../../core/models/sede.model';
       <!-- Encabezado con título y botón para crear nueva sede -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Gestión de Sedes</h2>
-        <button class="btn btn-action" routerLink="new">Nueva Sede</button>
+        <button class="btn btn-add" routerLink="new">Nueva Sede</button>
       </div>
 
       <!-- Tabla responsive para mostrar las sedes -->
@@ -43,8 +43,7 @@ import { Sede } from '../../../core/models/sede.model';
               <td>
                 <!-- Botones de acción para cada sede -->
                 <div class="btn-group">
-                  <button class="btn btn-sm btn-action" [routerLink]="[sede.id]">Ver</button>
-                  <button class="btn btn-sm btn-action" [routerLink]="[sede.id, 'edit']">Editar</button>
+                  <button class="btn btn-sm btn-edit" [routerLink]="[sede.id, 'edit']">Editar</button>
                   <button class="btn btn-sm btn-danger" (click)="deleteSede(sede.id!)">Eliminar</button>
                 </div>
               </td>
@@ -57,6 +56,63 @@ import { Sede } from '../../../core/models/sede.model';
   styles: [`
     .btn-group > .btn {
       margin: 0 2px;
+    }
+
+    /* Estilos para botón Nueva Sede (verde) */
+    .btn-add {
+      background-color:rgb(65, 204, 89) !important; /* Verde */
+      border-color:rgb(0, 0, 0) !important;
+      color: #ffffff !important;
+    }
+
+    .btn-add:hover {
+      background-color: rgb(65, 204, 89) !important; /* Verde más oscuro al pasar el mouse */
+      border-color: rgb(65, 204, 89) !important;
+    }
+
+    /* Estilos para botón Editar (azul) */
+    .btn-edit {
+      background-color: #0d6efd !important; /* Azul */
+      border-color: #0d6efd !important;
+      color: #ffffff !important;
+    }
+
+    .btn-edit:hover {
+      background-color: #0b5ed7 !important; /* Azul más oscuro al pasar el mouse */
+      border-color: #0b5ed7 !important;
+    }
+
+    /* Estilos para botón Ver (verde) - si btn-action no tiene color */
+    .btn-action {
+       background-color: rgb(65, 204, 89) !important; /* Verde */
+       border-color: rgb(65, 204, 89) !important;
+       color: #ffffff !important;
+    }
+
+    .btn-action:hover {
+       background-color: rgb(65, 204, 89) !important; /* Verde más oscuro */
+       border-color: rgb(65, 204, 89) !important;
+    }
+
+    /* Asegurar que los estilos de tamaño pequeño se apliquen */
+    .btn-sm.btn-add,
+    .btn-sm.btn-edit,
+    .btn-sm.btn-action {
+      padding: 0.25rem 0.5rem !important;
+      font-size: 0.875rem !important;
+      border-radius: 0.2rem !important;
+    }
+
+    /* Estilos para botón Eliminar (rojo) */
+    .btn-danger {
+        background-color: #e55353 !important; /* Rojo */
+        border-color: #e55353 !important;
+        color: #ffffff !important; /* Texto blanco */
+    }
+
+    .btn-danger:hover {
+      background-color: #e55353 !important; /* Rojo más oscuro al pasar el mouse */
+      border-color: #e55353 !important;
     }
   `]
 })

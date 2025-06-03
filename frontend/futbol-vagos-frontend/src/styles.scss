@@ -1,33 +1,139 @@
-/* Variables globales de CoreUI */
-:root {
-  --cui-header-bg: #2ecc71;
-  --cui-header-color: #ffffff;
-  --cui-header-border-color: #27ae60;
-  --cui-header-hover-bg: #219a52;
+.wrapper .header {
+  width: 100vw !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  position: fixed !important; 
+  top: 0 !important;
+  z-index: 1030; 
+  padding: 0 !important; 
 }
 
-/* Estilos para el header */
+.wrapper .header .container-fluid {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding-left: 0 !important; 
+  padding-right: 0 !important; 
+}
+
+.wrapper .header .container-fluid .row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.wrapper .header .ms-auto {
+  margin-left: auto !important;
+  margin-right: 0 !important; 
+}
+
+app-default-header c-container {
+  background-color: var(--header-bg) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important; 
+}
+
+app-default-header .container-fluid {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+app-default-header c-header-nav {
+  margin: 0 !important;
+  padding: 0 !important; 
+}
+
+app-default-header .ms-auto {
+  margin-left: auto !important; 
+  margin-right: 0 !important; 
+}
+
+app-default-header .mx-0 {
+   margin-left: 0 !important;
+   margin-right: 0 !important;
+}
+
+app-default-header .px-4 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+app-default-header c-header-nav c-nav-item {
+    padding-right: 0 !important;
+}
+
+app-default-header c-header-nav c-nav-item a {
+     padding-right: 0 !important;
+}
+
+app-default-header c-container.container-fluid {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 .header {
-  --cui-header-bg: var(--cui-header-bg) !important;
-  --cui-header-color: var(--cui-header-color) !important;
-  --cui-header-border-color: var(--cui-header-border-color) !important;
-  background-color: var(--cui-header-bg) !important;
-  color: var(--cui-header-color) !important;
-  border-bottom: 1px solid var(--cui-header-border-color) !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    z-index: 1030; 
 }
 
-.header .nav-link,
-.header a[cNavLink],
-.header button,
-.header svg {
-  color: var(--cui-header-color) !important;
+app-default-header c-header-nav {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.header .vr {
-  background-color: rgba(255, 255, 255, 0.5) !important;
+app-default-header .ms-auto {
+  margin-left: auto !important;
+  margin-right: 0 !important;
 }
 
-/* Estilos para botones */
+app-default-header .mx-0 {
+   margin-left: 0 !important;
+   margin-right: 0 !important;
+}
+
+.header.header-sticky {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100vw !important;
+  z-index: 1030 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.header.header-sticky .container-fluid {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.header.header-sticky .ms-auto {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+.header.header-sticky .mx-0 {
+   margin-left: 0 !important;
+   margin-right: 0 !important;
+}
+
 .btn-action,
 .btn-success {
   --cui-btn-bg: var(--cui-header-bg);
@@ -44,129 +150,104 @@
   --cui-btn-disabled-color: var(--cui-header-color);
 }
 
-/* Estilos para botones pequeños */
-.btn-sm.btn-action,
-.btn-sm.btn-success {
-  --cui-btn-padding-y: 0.25rem;
-  --cui-btn-padding-x: 0.5rem;
-  --cui-btn-font-size: 0.875rem;
-  --cui-btn-border-radius: 0.2rem;
+.btn-add {
+  --cui-btn-color: #fff !important;
+  --cui-btn-bg: #2ecc71 !important; 
+  --cui-btn-border-color: #2ecc71 !important;
+  --cui-btn-hover-color: #fff !important;
+  --cui-btn-hover-bg: #27ae60 !important;
+  --cui-btn-hover-border-color: #27ae60 !important;
+  --cui-btn-focus-shadow-rgb: 46,204,113 !important;
+  --cui-btn-active-color: #fff !important;
+  --cui-btn-active-bg: #219a52 !important;
+  --cui-btn-active-border-color: #219a52 !important;
+  --cui-btn-disabled-color: #fff !important;
+  --cui-btn-disabled-bg: #2ecc71 !important;
+  --cui-btn-disabled-border-color: #2ecc71 !important;
 }
 
-/* Estilos para el foco de los controles de formulario */
-.form-control:focus {
-  --cui-form-control-focus-border-color: var(--cui-header-bg);
-  --cui-form-control-focus-box-shadow: 0 0 0 0.25rem rgba(46, 204, 113, 0.25);
+.btn-edit {
+  --cui-btn-color: #fff !important;
+  --cui-btn-bg: #0d6efd !important; 
+  --cui-btn-border-color: #0d6efd !important;
+  --cui-btn-hover-color: #fff !important;
+  --cui-btn-hover-bg: #0b5ed7 !important;
+  --cui-btn-hover-border-color: #0b5ed7 !important;
+  --cui-btn-focus-shadow-rgb: 13,110,253 !important;
+  --cui-btn-active-color: #fff !important;
+  --cui-btn-active-bg: #0a58ca !important;
+  --cui-btn-active-border-color: #0a58ca !important;
+  --cui-btn-disabled-color: #fff !important;
+  --cui-btn-disabled-bg: #0d6efd !important;
+  --cui-btn-disabled-border-color: #0d6efd !important;
 }
 
-/* Estilos para botones de cancelar */
-.btn-secondary {
-  --cui-btn-bg: #6c757d;
-  --cui-btn-border-color: #6c757d;
-  --cui-btn-color: #ffffff;
-  --cui-btn-hover-bg: #5c636a;
-  --cui-btn-hover-border-color: #5c636a;
-  --cui-btn-hover-color: #ffffff;
-  --cui-btn-active-bg: #565e64;
-  --cui-btn-active-border-color: #565e64;
-  --cui-btn-active-color: #ffffff;
-  --cui-btn-disabled-bg: #6c757d;
-  --cui-btn-disabled-border-color: #6c757d;
-  --cui-btn-disabled-color: #ffffff;
+.btn-action {
+   --cui-btn-bg: #2ecc71 !important; 
+   --cui-btn-border-color: #2ecc71 !important;
+   --cui-btn-color: #ffffff !important;
+   --cui-btn-hover-bg: #27ae60 !important;
+   --cui-btn-hover-border-color: #27ae60 !important;
+   --cui-btn-hover-color: #ffffff !important;
+   --cui-btn-active-bg: #219a52 !important;
+   --cui-btn-active-border-color: #219a52 !important;
+   --cui-btn-active-color: #ffffff !important;
+   --cui-btn-disabled-bg: #2ecc71 !important;
+   --cui-btn-disabled-border-color: #2ecc71 !important;
+   --cui-btn-disabled-color: #ffffff !important;
 }
 
-/* Estilos para el header */
-app-default-header {
-  background-color: var(--header-bg) !important;
+.btn-sm.btn-add,
+.btn-sm.btn-edit,
+.btn-sm.btn-action { 
+  --cui-btn-padding-y: 0.25rem !important;
+  --cui-btn-padding-x: 0.5rem !important;
+  --cui-btn-font-size: 0.875rem !important;
+  --cui-btn-border-radius: 0.2rem !important;
 }
 
-app-default-header c-container {
-  background-color: var(--header-bg) !important;
+:root {
+    --cui-custom-green: rgb(65, 204, 89);
+    --cui-custom-green-dark: rgb(40, 164, 60);
+    --cui-custom-blue: #0d6efd;
+    --cui-custom-blue-dark: #0b5ed7;
 }
 
-app-default-header .border-bottom {
-  border-color: var(--header-border) !important;
+.btn-success {
+  --cui-btn-color: #fff !important;
+  --cui-btn-bg: var(--cui-custom-green) !important;
+  --cui-btn-border-color: var(--cui-custom-green) !important;
+  --cui-btn-hover-color: #fff !important;
+  --cui-btn-hover-bg: var(--cui-custom-green-dark) !important;
+  --cui-btn-hover-border-color: var(--cui-custom-green-dark) !important;
+  --cui-btn-focus-shadow-rgb: 65,204,89 !important;
+  --cui-btn-active-color: #fff !important;
+  --cui-btn-active-bg: var(--cui-custom-green-dark) !important;
+  --cui-btn-active-border-color: var(--cui-custom-green-dark) !important;
+  --cui-btn-disabled-color: #fff !important;
+  --cui-btn-disabled-bg: var(--cui-custom-green) !important;
+  --cui-btn-disabled-border-color: var(--cui-custom-green) !important;
 }
 
-app-default-header c-nav-link,
-app-default-header a[cNavLink],
-app-default-header button,
-app-default-header svg {
-  color: var(--header-text) !important;
+.btn-primary { 
+  --cui-btn-color: #fff !important;
+  --cui-btn-bg: var(--cui-custom-blue) !important;
+  --cui-btn-border-color: var(--cui-custom-blue) !important;
+  --cui-btn-hover-color: #fff !important;
+  --cui-btn-hover-bg: var(--cui-custom-blue-dark) !important;
+  --cui-btn-hover-border-color: var(--cui-custom-blue-dark) !important;
+  --cui-btn-focus-shadow-rgb: 13,110,253 !important;
+  --cui-btn-active-color: #fff !important;
+  --cui-btn-active-bg: var(--cui-custom-blue-dark) !important;
+  --cui-btn-active-border-color: var(--cui-custom-blue-dark) !important;
+  --cui-btn-disabled-color: #fff !important;
+  --cui-btn-disabled-bg: var(--cui-custom-blue) !important;
+  --cui-btn-disabled-border-color: var(--cui-custom-blue) !important;
 }
 
-app-default-header .vr {
-  background-color: rgba(255, 255, 255, 0.5) !important;
-}
-
-app-default-header c-dropdown-menu {
-  background-color: #ffffff !important;
-}
-
-app-default-header c-dropdown-item {
-  color: #333333 !important;
-}
-
-app-default-header c-dropdown-item:hover {
-  background-color: #f8f9fa !important;
-}
-
-app-default-header c-breadcrumb-router {
-  background-color: transparent !important;
-}
-
-app-default-header c-breadcrumb-item,
-app-default-header c-breadcrumb-item a {
-  color: var(--header-text) !important;
-}
-
-/* Estilos para el header */
-.header {
-  background-color: #2ecc71 !important;
-  border-bottom: 1px solid #27ae60 !important;
-}
-
-.header .nav-link,
-.header .btn,
-.header svg {
-  color: #ffffff !important;
-}
-
-.header .vr {
-  background-color: rgba(255, 255, 255, 0.5) !important;
-}
-
-.header .dropdown-menu {
-  background-color: #ffffff !important;
-}
-
-.header .dropdown-item {
-  color: #333333 !important;
-}
-
-.header .dropdown-item:hover {
-  background-color: #f8f9fa !important;
-}
-
-.header .dropdown-header {
-  background-color: #f8f9fa !important;
-  color: #6c757d !important;
-}
-
-/* Estilos para el breadcrumb en el header */
-.header .breadcrumb {
-  background-color: transparent !important;
-}
-
-.header .breadcrumb-item,
-.header .breadcrumb-item a {
-  color: #ffffff !important;
-}
-
-.header .breadcrumb-item.active {
-  color: rgba(255, 255, 255, 0.75) !important;
-}
-
-.header .breadcrumb-item + .breadcrumb-item::before {
-  color: rgba(255, 255, 255, 0.5) !important;
+.btn-sm.btn-success,
+.btn-sm.btn-primary {
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+  border-radius: 0.2rem !important;
 } 

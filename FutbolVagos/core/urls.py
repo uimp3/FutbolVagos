@@ -34,6 +34,7 @@ router.register(r'trabajadores', TrabajadorViewSet)
 
 urlpatterns = [
     path('', include(router.urls)), # Incluye las rutas de la API REST
+    path('reservaciones/by_cliente/<int:cliente_id>/', ReservacionViewSet.as_view({'get': 'list_by_cliente'}), name='reservaciones-by-cliente'),
     # Swagger URLs
     re_path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
