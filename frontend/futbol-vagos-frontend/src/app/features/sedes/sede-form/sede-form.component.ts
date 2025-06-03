@@ -148,9 +148,6 @@ export class SedeFormComponent implements OnInit {
   // Se ejecuta al inicializar el componente
   ngOnInit(): void {
     // Verifica si hay un ID en la URL (modo edición)
-    const paramId = this.route.snapshot.paramMap.get('id');
-    if (paramId && !isNaN(+paramId)) {
-      this.sedeId = +paramId;
     this.generateAvailableHours(); // Generar las horas disponibles
     this.sedeId = Number(this.route.snapshot.paramMap.get('id'));
     if (this.sedeId) {
@@ -158,7 +155,6 @@ export class SedeFormComponent implements OnInit {
       this.loadSede();
     }
   }
-
   // Carga los datos de la sede para edición
   loadSede(): void {
     if (this.sedeId) {

@@ -340,6 +340,10 @@ export class ReservacionFormComponent implements OnInit {
   onSubmit(): void {
     if (this.reservacionForm.valid) {
       const reservacion: Reservacion = this.reservacionForm.value;
+      console.log('Formulario completo:', this.reservacionForm.value);
+      console.log('Estado del formulario:', this.reservacionForm.status);
+      console.log('Errores del formulario:', this.reservacionForm.errors);
+      console.log('Datos de la reservación a enviar:', JSON.stringify(reservacion, null, 2));
 
       if (this.isEditing && this.reservacionId) {
         this.reservacionService.updateReservacion(this.reservacionId, reservacion).subscribe(
@@ -365,14 +369,13 @@ export class ReservacionFormComponent implements OnInit {
             this.router.navigate(['/reservaciones']);
           },
           (error) => {
-            console.error('Error creando reservación:', error);
-            // Mostrar mensaje de error del backend
-             if (error.error && error.error.non_field_errors) {
+            console.error('Error completo:', error);
+            console.error('Error detallado:', JSON.stringify(error, null, 2));
+            if (error.error && error.error.non_field_errors) {
               this.errorMessage = error.error.non_field_errors[0];
             } else if (error.error) {
-                 this.errorMessage = JSON.stringify(error.error);
-            }
-             else {
+              this.errorMessage = JSON.stringify(error.error);
+            } else {
               this.errorMessage = 'Ocurrió un error al crear la reservación.';
             }
           }

@@ -45,12 +45,12 @@ export const navItems: INavData[] = [
     name: 'Reservaciones'
   },
   {
-    name: 'Reservacion',    // Nombre que aparece en el menú
+    name: 'Reservación',    // Nombre que aparece en el menú
     url: '/reservaciones',               // URL a la que navegará
     iconComponent: { name: 'cil-notes' }, // Icono que se muestra
   },
   {
-    name: 'Facturacion',    
+    name: 'Facturación',    
     url: '/factura',              
     iconComponent: { name: 'cil-pencil' }, 
   },
