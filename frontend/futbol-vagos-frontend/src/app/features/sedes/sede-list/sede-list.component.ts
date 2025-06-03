@@ -14,7 +14,7 @@ import { Sede } from '../../../core/models/sede.model';
       <!-- Encabezado con título y botón para crear nueva sede -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Gestión de Sedes</h2>
-        <button class="btn btn-primary" routerLink="new">Nueva Sede</button>
+        <button class="btn btn-action" routerLink="new">Nueva Sede</button>
       </div>
 
       <!-- Tabla responsive para mostrar las sedes -->
@@ -43,8 +43,8 @@ import { Sede } from '../../../core/models/sede.model';
               <td>
                 <!-- Botones de acción para cada sede -->
                 <div class="btn-group">
-                  <button class="btn btn-sm btn-info" [routerLink]="[sede.id]">Ver</button>
-                  <button class="btn btn-sm btn-warning" [routerLink]="[sede.id, 'edit']">Editar</button>
+                  <button class="btn btn-sm btn-action" [routerLink]="[sede.id]">Ver</button>
+                  <button class="btn btn-sm btn-action" [routerLink]="[sede.id, 'edit']">Editar</button>
                   <button class="btn btn-sm btn-danger" (click)="deleteSede(sede.id!)">Eliminar</button>
                 </div>
               </td>

@@ -1,5 +1,4 @@
-<!--<c-header class="mb-4 d-print-none" position="sticky">-->
-<ng-container>
+<c-header class="header">
   <c-container [fluid]="true" class="border-bottom px-4">
     <button
       [cSidebarToggle]="sidebarId()"
@@ -23,7 +22,7 @@
       </c-nav-item>
     </c-header-nav>
 
-    <c-header-nav class="d-none d-md-flex ms-auto ">
+    <c-header-nav class="d-none d-md-flex ms-auto">
       <a cNavLink>
         <svg cIcon class="my-1" name="cilBell" size="lg"></svg>
       </a>
@@ -37,24 +36,22 @@
 
     <c-header-nav class="ms-auto ms-md-0">
       <div class="nav-item py-1">
-        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+        <div class="vr h-100 mx-2"></div>
       </div>
       <ng-container *ngTemplateOutlet="themeDropdown" />
       <div class="nav-item py-1">
-        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+        <div class="vr h-100 mx-2"></div>
       </div>
     </c-header-nav>
 
     <c-header-nav class="mx-0">
       <ng-container *ngTemplateOutlet="userDropdown" />
     </c-header-nav>
-
   </c-container>
   <c-container [fluid]="true" class="px-4">
     <c-breadcrumb-router />
   </c-container>
-</ng-container>
-<!--</c-header>-->
+</c-header>
 
 <ng-template #userDropdown>
   <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
@@ -78,30 +75,28 @@
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilBell"></svg>
           Updates
-          <c-badge class="ms-2 float-end" color="info"> 42</c-badge>
+          <c-badge class="ms-2 float-end" color="info">42</c-badge>
         </a>
       </li>
       <li>
         <a cDropdownItem routerLink="/apps/email/inbox">
           <svg cIcon class="me-2" name="cilEnvelopeOpen"></svg>
           Messages
-          <c-badge class="ms-2 float-end" color="success">
-            42
-          </c-badge>
+          <c-badge class="ms-2 float-end" color="success">42</c-badge>
         </a>
       </li>
       <li>
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilTask"></svg>
           Tasks
-          <c-badge class="ms-2 float-end" color="danger"> 42</c-badge>
+          <c-badge class="ms-2 float-end" color="danger">42</c-badge>
         </a>
       </li>
       <li>
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilCommentSquare"></svg>
           Comments
-          <c-badge class="ms-auto" color="warning"> 42</c-badge>
+          <c-badge class="ms-auto" color="warning">42</c-badge>
         </a>
       </li>
       <li>
@@ -109,7 +104,6 @@
           Settings
         </h6>
       </li>
-      <li></li>
       <li>
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilUser"></svg>
@@ -126,18 +120,14 @@
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilCreditCard"></svg>
           Payments
-          <c-badge class="ms-2 float-end" color="secondary">
-            42
-          </c-badge>
+          <c-badge class="ms-2 float-end" color="secondary">42</c-badge>
         </a>
       </li>
       <li>
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilFile"></svg>
           Projects
-          <c-badge class="ms-2 float-end" color="primary">
-            42
-          </c-badge>
+          <c-badge class="ms-2 float-end" color="primary">42</c-badge>
         </a>
       </li>
       <li>
