@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'core',  
     'rest_framework',
     'drf_yasg',
+    'corsheaders',
 ]
 
 KEYCLOAK_CONFIG = {
@@ -57,6 +58,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,6 +68,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'keycloak_oidc.middleware.OIDCMiddleware', 
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+    
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'FutbolVagos.urls'
 

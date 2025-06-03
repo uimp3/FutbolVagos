@@ -6,10 +6,9 @@
   id="sidebar1"
   visible
 >
-  <c-sidebar-header class="border-bottom">
-    <c-sidebar-brand [routerLink]="[]">
-      <svg [class]="{icon: false}" cIcon class="sidebar-brand-full" height="32" name="logo" title="CoreUI Logo"></svg>
-      <svg cIcon class="sidebar-brand-narrow" height="32" name="signet" title="CoreUI Logo"></svg>
+  <c-sidebar-header class="border-bottom" style="display: flex; justify-content: center; align-items: center;">
+    <c-sidebar-brand [routerLink]="[]" style="width: 100%; display: flex; justify-content: center;">
+      <img src="assets/logo.png" alt="FutbolVagos" style="display: block; width: 80%; max-width: 200px; height: auto;" />
     </c-sidebar-brand>
   </c-sidebar-header>
 
@@ -27,12 +26,13 @@
 <!--main-->
 <div class="wrapper d-flex flex-column min-vh-100">
   <!--app-header-->
-  <app-default-header
+  <c-header
     [cShadowOnScroll]="'sm'"
     class="mb-4 d-print-none header header-sticky p-0 shadow-sm"
     position="sticky"
-    sidebarId="sidebar1"
-  />
+  >
+    <app-default-header sidebarId="sidebar1" />
+  </c-header>
   <!--app-body-->
   <div class="body flex-grow-1">
     <c-container breakpoint="lg" class="h-auto px-4">

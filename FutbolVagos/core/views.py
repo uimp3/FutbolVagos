@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from FutbolVagos.authentication import KeycloakAuthentication
 from .models import Cliente, Sede, Cancha, Reservacion, Factura, Trabajador
@@ -27,8 +27,7 @@ class ClienteViewSet(viewsets.ModelViewSet):
 class SedeViewSet(viewsets.ModelViewSet):
     queryset = Sede.objects.all()
     serializer_class = SedeSerializer
-    authentication_classes = [KeycloakAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         operation_summary="Lista de todas las sedes disponibles en la base de datos.", 
@@ -43,7 +42,7 @@ class CanchaViewSet(viewsets.ModelViewSet):
     queryset = Cancha.objects.all()
     serializer_class = CanchaSerializer
     authentication_classes = [KeycloakAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         operation_summary="Lista de todas las canchas disponibles en la base de datos.", 
@@ -60,8 +59,7 @@ class CanchaViewSet(viewsets.ModelViewSet):
 class ReservacionViewSet(viewsets.ModelViewSet):
     queryset = Reservacion.objects.all()
     serializer_class = ReservacionSerializer
-    authentication_classes = [KeycloakAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         operation_summary="Lista de todas las reservaciones registradas en la base de datos.", 
@@ -74,8 +72,7 @@ class ReservacionViewSet(viewsets.ModelViewSet):
 class FacturaViewSet(viewsets.ModelViewSet):
     queryset = Factura.objects.all()
     serializer_class = FacturaSerializer
-    authentication_classes = [KeycloakAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         operation_summary="Lista de todas las facturas registradas en la base de datos.", 
@@ -88,8 +85,7 @@ class FacturaViewSet(viewsets.ModelViewSet):
 class TrabajadorViewSet(viewsets.ModelViewSet):
     queryset = Trabajador.objects.all()
     serializer_class = TrabajadorSerializer
-    authentication_classes = [KeycloakAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         operation_summary="Lista de todos los trabajadores registrados en la base de datos.", 

@@ -1,6 +1,22 @@
 @use "@coreui/coreui/scss/mixins/transition" as *;
 @use "@coreui/coreui/scss/mixins/color-mode" as *;
 
+// Variables personalizadas
+:root {
+  --cui-header-bg: #2ecc71;
+  --cui-header-color: #ffffff;
+  --cui-header-border-color: #27ae60;
+  --cui-btn-success-bg: #2ecc71;
+  --cui-btn-success-border-color: #2ecc71;
+  --cui-btn-success-color: #ffffff;
+  --cui-btn-success-hover-bg: #27ae60;
+  --cui-btn-success-hover-border-color: #27ae60;
+  --cui-btn-success-hover-color: #ffffff;
+  --cui-btn-success-active-bg: #219a52;
+  --cui-btn-success-active-border-color: #219a52;
+  --cui-btn-success-active-color: #ffffff;
+}
+
 body {
   background-color: var(--cui-tertiary-bg);
 }
@@ -12,9 +28,26 @@ body {
   @include transition(padding .15s);
 }
 
+.header {
+  background-color: var(--cui-header-bg) !important;
+  color: var(--cui-header-color) !important;
+  border-bottom: 1px solid var(--cui-header-border-color) !important;
+}
+
 .header > .container-fluid,
 .sidebar-header {
   min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+.header .nav-link,
+.header a[cNavLink],
+.header button,
+.header svg {
+  color: var(--cui-header-color) !important;
+}
+
+.header .vr {
+  background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 .sidebar-brand-full {
@@ -60,5 +93,10 @@ body {
 
   .footer {
     --cui-footer-bg: var(--cui-body-bg);
+  }
+
+  .header {
+    background-color: var(--cui-header-bg) !important;
+    color: var(--cui-header-color) !important;
   }
 }

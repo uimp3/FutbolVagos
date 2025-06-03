@@ -1,0 +1,172 @@
+/* Variables globales de CoreUI */
+:root {
+  --cui-header-bg: #2ecc71;
+  --cui-header-color: #ffffff;
+  --cui-header-border-color: #27ae60;
+  --cui-header-hover-bg: #219a52;
+}
+
+/* Estilos para el header */
+.header {
+  --cui-header-bg: var(--cui-header-bg) !important;
+  --cui-header-color: var(--cui-header-color) !important;
+  --cui-header-border-color: var(--cui-header-border-color) !important;
+  background-color: var(--cui-header-bg) !important;
+  color: var(--cui-header-color) !important;
+  border-bottom: 1px solid var(--cui-header-border-color) !important;
+}
+
+.header .nav-link,
+.header a[cNavLink],
+.header button,
+.header svg {
+  color: var(--cui-header-color) !important;
+}
+
+.header .vr {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Estilos para botones */
+.btn-action,
+.btn-success {
+  --cui-btn-bg: var(--cui-header-bg);
+  --cui-btn-border-color: var(--cui-header-bg);
+  --cui-btn-color: var(--cui-header-color);
+  --cui-btn-hover-bg: var(--cui-header-hover-bg);
+  --cui-btn-hover-border-color: var(--cui-header-hover-bg);
+  --cui-btn-hover-color: var(--cui-header-color);
+  --cui-btn-active-bg: var(--cui-header-hover-bg);
+  --cui-btn-active-border-color: var(--cui-header-hover-bg);
+  --cui-btn-active-color: var(--cui-header-color);
+  --cui-btn-disabled-bg: var(--cui-header-bg);
+  --cui-btn-disabled-border-color: var(--cui-header-bg);
+  --cui-btn-disabled-color: var(--cui-header-color);
+}
+
+/* Estilos para botones pequeños */
+.btn-sm.btn-action,
+.btn-sm.btn-success {
+  --cui-btn-padding-y: 0.25rem;
+  --cui-btn-padding-x: 0.5rem;
+  --cui-btn-font-size: 0.875rem;
+  --cui-btn-border-radius: 0.2rem;
+}
+
+/* Estilos para el foco de los controles de formulario */
+.form-control:focus {
+  --cui-form-control-focus-border-color: var(--cui-header-bg);
+  --cui-form-control-focus-box-shadow: 0 0 0 0.25rem rgba(46, 204, 113, 0.25);
+}
+
+/* Estilos para botones de cancelar */
+.btn-secondary {
+  --cui-btn-bg: #6c757d;
+  --cui-btn-border-color: #6c757d;
+  --cui-btn-color: #ffffff;
+  --cui-btn-hover-bg: #5c636a;
+  --cui-btn-hover-border-color: #5c636a;
+  --cui-btn-hover-color: #ffffff;
+  --cui-btn-active-bg: #565e64;
+  --cui-btn-active-border-color: #565e64;
+  --cui-btn-active-color: #ffffff;
+  --cui-btn-disabled-bg: #6c757d;
+  --cui-btn-disabled-border-color: #6c757d;
+  --cui-btn-disabled-color: #ffffff;
+}
+
+/* Estilos para el header */
+app-default-header {
+  background-color: var(--header-bg) !important;
+}
+
+app-default-header c-container {
+  background-color: var(--header-bg) !important;
+}
+
+app-default-header .border-bottom {
+  border-color: var(--header-border) !important;
+}
+
+app-default-header c-nav-link,
+app-default-header a[cNavLink],
+app-default-header button,
+app-default-header svg {
+  color: var(--header-text) !important;
+}
+
+app-default-header .vr {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+app-default-header c-dropdown-menu {
+  background-color: #ffffff !important;
+}
+
+app-default-header c-dropdown-item {
+  color: #333333 !important;
+}
+
+app-default-header c-dropdown-item:hover {
+  background-color: #f8f9fa !important;
+}
+
+app-default-header c-breadcrumb-router {
+  background-color: transparent !important;
+}
+
+app-default-header c-breadcrumb-item,
+app-default-header c-breadcrumb-item a {
+  color: var(--header-text) !important;
+}
+
+/* Estilos para el header */
+.header {
+  background-color: #2ecc71 !important;
+  border-bottom: 1px solid #27ae60 !important;
+}
+
+.header .nav-link,
+.header .btn,
+.header svg {
+  color: #ffffff !important;
+}
+
+.header .vr {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.header .dropdown-menu {
+  background-color: #ffffff !important;
+}
+
+.header .dropdown-item {
+  color: #333333 !important;
+}
+
+.header .dropdown-item:hover {
+  background-color: #f8f9fa !important;
+}
+
+.header .dropdown-header {
+  background-color: #f8f9fa !important;
+  color: #6c757d !important;
+}
+
+/* Estilos para el breadcrumb en el header */
+.header .breadcrumb {
+  background-color: transparent !important;
+}
+
+.header .breadcrumb-item,
+.header .breadcrumb-item a {
+  color: #ffffff !important;
+}
+
+.header .breadcrumb-item.active {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.header .breadcrumb-item + .breadcrumb-item::before {
+  color: rgba(255, 255, 255, 0.5) !important;
+} 

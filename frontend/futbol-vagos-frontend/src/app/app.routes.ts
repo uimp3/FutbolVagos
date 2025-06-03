@@ -2,12 +2,21 @@ import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
 import { SedeListComponent } from './features/sedes/sede-list/sede-list.component';
 import { SedeFormComponent } from './features/sedes/sede-form/sede-form.component';
+import { ClienteListComponent } from './features/clientes/cliente-list/cliente-list.component';
+import { ClienteFormComponent } from './features/clientes/cliente-form/cliente-form.component';
+import { ClienteDetailComponent } from './features/clientes/cliente-detail/cliente-detail.component';
+import { CanchaListComponent } from './features/canchas/cancha-list/cancha-list.component';
+import { CanchaFormComponent } from './features/canchas/cancha-form/cancha-form.component';
+import { CanchaDetailComponent } from './features/canchas/cancha-detail/cancha-detail.component';
+import { ReservacionListComponent } from './features/reservaciones/reservacion-list/reservacion-list.component';
+import { ReservacionFormComponent } from './features/reservaciones/reservacion-form/reservacion-form.component';
+import { ReservacionDetailComponent } from './features/reservaciones/reservacion-detail/reservacion-detail.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
@@ -20,23 +29,62 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [authGuard],
     children: [
-    {
-      path: 'dashboard',
-      canActivate: [authGuard],
-      loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes),
-      data: { title: 'Dashboard' }
-    },
-    {
-      path: 'sedes',
-      canActivate: [authGuard],
-      data: { title: 'Gestión de Sedes' },
-      children: [
-        { path: '', component: SedeListComponent },
-        { path: 'new', component: SedeFormComponent },
-        { path: ':id/edit', component: SedeFormComponent }
-      ]
-    },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes),
+        data: {
+          title: 'Dashboard'
+        }
+      },
+      {
+        path: 'sedes',
+        data: {
+          title: 'Gestión de Sedes'
+        },
+        children: [
+          { path: '', component: SedeListComponent },
+          { path: 'new', component: SedeFormComponent },
+          { path: ':id/edit', component: SedeFormComponent }
+        ]
+      },
+      {
+        path: 'clientes',
+        data: {
+          title: 'Gestión de Clientes'
+        },
+        children: [
+          { path: '', component: ClienteListComponent },
+          { path: 'new', component: ClienteFormComponent },
+          { path: ':id', component: ClienteDetailComponent },
+          { path: ':id/edit', component: ClienteFormComponent }
+        ]
+      },
+      {
+        path: 'canchas',
+        data: {
+          title: 'Gestión de Canchas'
+        },
+        children: [
+          { path: '', component: CanchaListComponent },
+          { path: 'new', component: CanchaFormComponent },
+          { path: ':id', component: CanchaDetailComponent },
+          { path: ':id/edit', component: CanchaFormComponent }
+        ]
+      },
+      {
+        path: 'reservaciones',
+        data: {
+          title: 'Gestión de Reservaciones'
+        },
+        children: [
+          { path: '', component: ReservacionListComponent },
+          { path: 'new', component: ReservacionFormComponent },
+          { path: ':id', component: ReservacionDetailComponent },
+          { path: ':id/edit', component: ReservacionFormComponent }
+        ]
+      },
       {
         path: 'theme',
         loadChildren: () => import('./views/theme/routes').then((m) => m.routes)

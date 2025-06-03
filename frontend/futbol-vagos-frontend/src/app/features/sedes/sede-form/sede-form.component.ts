@@ -71,7 +71,7 @@ import { Sede } from '../../../core/models/sede.model';
 
         <!-- Botones de acción -->
         <div class="col-12">
-          <button type="submit" class="btn btn-primary me-2" [disabled]="sedeForm.invalid">Guardar</button>
+          <button type="submit" class="btn btn-action me-2" [disabled]="sedeForm.invalid">Guardar</button>
           <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
         </div>
       </form>
