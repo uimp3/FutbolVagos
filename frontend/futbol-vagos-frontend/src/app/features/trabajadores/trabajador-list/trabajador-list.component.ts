@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TrabajadorService } from '../../../core/services/trabajador.service';
@@ -8,7 +8,7 @@ import { Trabajador } from '../../../core/models/trabajador.model';
 @Component({
   selector: 'app-trabajador-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, DatePipe],
+  imports: [CommonModule, RouterModule, FormsModule],
   template: `
     <div class="container-lg px-4 py-5">
       <div class="d-flex justify-content-between align-items-center mb-4">

@@ -48,8 +48,8 @@ KEYCLOAK_CONFIG = {
     'SERVER_URL': 'http://keycloak:8080',
     'REALM': 'futbolvagos',
     'CLIENT_ID': 'django-backend',
-    'CLIENT_SECRET': 'LYrZ8JWGg0ryBQdKY972Glt413xiAWMU',
-    'PUBLIC_KEY': """MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArIZaJ7a/y2T63x8xVdMu7T3L6JxYA+XvTHmzE88JHV2Ka2eDGv1Ir5sLXFyYLplwLGxVHFoMtjHmV02LrG1j1w0CAfi86lvmKZZr+7dK1Zkwwy1do79BAo8JbW668/r/z23EIbpdKoJikioGyuuX5cD6MYoai2+AarWm0Vlrq0L6anuDQU1x1xmN7lEAYel3Yn2MRf3Z7GbyJ8xcakH1+5AW/8UnnXtCeq09J9Ry735jRdllkJg5FFNdmfJlX/Fk7N5V/WtZ9Vw1rR6bcsKushBqYut6pNZbEEyLyhJjrElr4AB8AJ2ZavJDn9R+HzPzWL2Gv1ft4dMGu1sKtMkjXQIDAQAB"""
+    'CLIENT_SECRET': 'du7lIyTy3ErygORxsriADbA6rorAB2fv',
+    'PUBLIC_KEY': """MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArdvKZfNV9BnH3iDLap+73FXBX1+0m7IvmH+dL8MjZd4aV4xh/DHyw9B9gRqisFehaIooRhe8oO7nI176TkGiG2H8vm78c+8Qn6io7MKKMONARC7K28hgf5VZ048veNIgrngaTQnn2RIKP9O5S1itmBJ23iZy1mUbb1fSHZvP3RVTNd/j6//+ovE3oC6PI1I0KAm8KSgd0GWQHcGidTkM43wc7S4XlG75DTXZRseHHM14QXklTOf+6cmiLfVXVIZeVw8V2I/WqzSkmIy39DRYLfsP/YiE+8WmMWmqf2YON7H/Sz23K9RUWchMmkvL8/Nyv3lYo3YFrkxqiuEywdrqxQIDAQAB"""
 }
 
 AUTHENTICATION_BACKENDS = [  
@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -70,11 +71,32 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
-    
+    "http://localhost:8081",
+    "http://127.0.0.1:8081",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 ROOT_URLCONF = 'FutbolVagos.urls'
 
