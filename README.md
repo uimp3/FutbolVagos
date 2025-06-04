@@ -47,12 +47,6 @@ git clone https://github.com/uimp3/FutbolVagos.git
 ```
 
 
-
-Luego dirígete a esta ruta
-```bash
-cd FutbolVagos/FutbolVagos
-```
-
 ### **2. Construir contenedores en docker**
 Si es la primera vez que estas ejecutando el proyecto, debes construir los contenedores:
 ```bash
