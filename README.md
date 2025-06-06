@@ -64,8 +64,10 @@ En el navegador se abre
 ```bash
 http://localhost:8000/
 ```
+
 (esperar a que cargue la imagen si inició el docker recién)
 Dirigirse a Manage realms, Create realm. Luego, arrastrar o buscar donde clonó FutbolVagos el archivo realm-export.json  
+
 ---
 En Users, crear un nuevo usuario
 ![image](https://github.com/user-attachments/assets/de9499e6-d782-4e63-8fda-978b39516844)
