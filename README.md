@@ -59,8 +59,33 @@ Si ya tienes las imágenes descargadas previamente si las acabas de crear ejecut
 docker-compose up -d
 ```
 
-### **3. Uso de la web**
+### **3. Crear realm en Keycloak**
+En el navegador se abre
+```bash
+http://localhost:8000/
+```
+(esperar a que cargue la imagen si inició el docker recién)
+Dirigirse a Manage realms, Create realm. Luego, arrastrar o buscar donde clonó FutbolVagos el archivo realm-export.json  
+---
+En Users, crear un nuevo usuario
+![image](https://github.com/user-attachments/assets/de9499e6-d782-4e63-8fda-978b39516844)
 
+Guardar y dirigirse a Credentials, set password, configurar una contraseña y desactivar el temporary
+
+---
+Finalizar configuraciones:
+Ir a Clients, django-backend, Credentials, Regenerar y copiar el client secret.
+En el proyecto clonado reemplazar el client secret en:
+/FutbolVagos/FutbolVagos/settings.py      línea 51
+/frontend/futbol-vagos-frontend/src/environments/environment.ts      línea 7
+/frontend/futbol-vagos-frontend/src/environments/environment.prod.ts      línea 7
+
+### **3. Uso de la web**
+Con lo anterior, ya estaría listo todo para usarse con el usuario que se creó
+En el navegador abrir:
+```bash
+http://localhost:8000/
+```
 
 
 #### **a. Con “admin” de Django **
