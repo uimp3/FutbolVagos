@@ -1,0 +1,102 @@
+@use "@coreui/coreui/scss/mixins/transition" as *;
+@use "@coreui/coreui/scss/mixins/color-mode" as *;
+
+// Variables personalizadas
+:root {
+  --cui-header-bg: #2ecc71;
+  --cui-header-color: #ffffff;
+  --cui-header-border-color: #27ae60;
+  --cui-btn-success-bg: #2ecc71;
+  --cui-btn-success-border-color: #2ecc71;
+  --cui-btn-success-color: #ffffff;
+  --cui-btn-success-hover-bg: #27ae60;
+  --cui-btn-success-hover-border-color: #27ae60;
+  --cui-btn-success-hover-color: #ffffff;
+  --cui-btn-success-active-bg: #219a52;
+  --cui-btn-success-active-border-color: #219a52;
+  --cui-btn-success-active-color: #ffffff;
+}
+
+body {
+  background-color: var(--cui-tertiary-bg);
+}
+
+.wrapper {
+  width: 100%;
+  padding-inline: var(--cui-sidebar-occupy-start, 0) var(--cui-sidebar-occupy-end, 0);
+  will-change: auto;
+  @include transition(padding .15s);
+}
+
+.header {
+  background-color: var(--cui-header-bg) !important;
+  color: var(--cui-header-color) !important;
+  border-bottom: 1px solid var(--cui-header-border-color) !important;
+}
+
+.header > .container-fluid,
+.sidebar-header {
+  min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+.header .nav-link,
+.header a[cNavLink],
+.header button,
+.header svg {
+  color: var(--cui-header-color) !important;
+}
+
+.header .vr {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.sidebar-brand-full {
+  margin-left: 3px;
+}
+
+.sidebar-header {
+  .nav-underline-border {
+    --cui-nav-underline-border-link-padding-x: 1rem;
+    --cui-nav-underline-border-gap: 0;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+  }
+}
+
+.sidebar-toggler {
+  margin-inline-start: auto;
+}
+
+.sidebar-narrow,
+.sidebar-narrow-unfoldable:not(:hover) {
+  .sidebar-toggler {
+    margin-inline-end: auto;
+  }
+}
+
+.header > .container-fluid + .container-fluid {
+  min-height: 3rem;
+}
+
+.footer {
+  min-height: calc(3rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+@include color-mode(dark) {
+  body {
+    background-color: var(--cui-dark-bg-subtle);
+  }
+
+  .footer {
+    --cui-footer-bg: var(--cui-body-bg);
+  }
+
+  .header {
+    background-color: var(--cui-header-bg) !important;
+    color: var(--cui-header-color) !important;
+  }
+}

@@ -41,14 +41,15 @@ INSTALLED_APPS = [
     'core',  
     'rest_framework',
     'drf_yasg',
+    'corsheaders',
 ]
 
 KEYCLOAK_CONFIG = {
     'SERVER_URL': 'http://keycloak:8080',
     'REALM': 'futbolvagos',
-    'CLIENT_ID': 'django_backend',
-    'CLIENT_SECRET': 'qEYcpeoCMzM1XyPkoB2dFgBzaURsNmdU',
-    'PUBLIC_KEY': """MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0eybZ9OTDeZTKxmLRSFHDe4TfEjl0WClhelL+bJ/doLEFPLPuKz3ateRpx/nVCEk2ze4vAearz+WJT7t9PI5AOOzwBq+3yO7rOafdOfAyJq/W+wmFl99LovBP5J6YE44FWazE5h2YJNChJSuqxMN9Bu5GcU91DifSxYkOxeVcd1E0bOfEKWyCxQjtIH8yOhYzOOQSpboxDdMu7VspZqxAJo/rXU9ZQ8FjyJX4RO+4Ul4SQlc1ztDDhbXDxVuOBVPlWN+qm4y2HxGvY92MvGSF4fBmqDC2FTYggH1sbz2OUgEVWIDsyKZ4IuIvJM5oEV5l3QIzf2SBxQO2VT1wOC5pQIDAQAB"""
+    'CLIENT_ID': 'django-backend',
+    'CLIENT_SECRET': 'du7lIyTy3ErygORxsriADbA6rorAB2fv',
+    'PUBLIC_KEY': """MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArdvKZfNV9BnH3iDLap+73FXBX1+0m7IvmH+dL8MjZd4aV4xh/DHyw9B9gRqisFehaIooRhe8oO7nI176TkGiG2H8vm78c+8Qn6io7MKKMONARC7K28hgf5VZ048veNIgrngaTQnn2RIKP9O5S1itmBJ23iZy1mUbb1fSHZvP3RVTNd/j6//+ovE3oC6PI1I0KAm8KSgd0GWQHcGidTkM43wc7S4XlG75DTXZRseHHM14QXklTOf+6cmiLfVXVIZeVw8V2I/WqzSkmIy39DRYLfsP/YiE+8WmMWmqf2YON7H/Sz23K9RUWchMmkvL8/Nyv3lYo3YFrkxqiuEywdrqxQIDAQAB"""
 }
 
 AUTHENTICATION_BACKENDS = [  
@@ -57,14 +58,44 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'keycloak_oidc.middleware.OIDCMiddleware', 
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8081",
+    "http://127.0.0.1:8081",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 ROOT_URLCONF = 'FutbolVagos.urls'

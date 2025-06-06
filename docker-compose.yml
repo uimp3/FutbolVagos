@@ -33,7 +33,7 @@ services:
 
   frontend:
     build: 
-      context: ./frontend
+      context: ./frontend/futbol-vagos-frontend
       dockerfile: Dockerfile
     container_name: angular_frontend
     ports:
@@ -55,6 +55,8 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HOSTNAME: localhost
       KC_HOSTNAME_PORT: 8080
+    volumes:
+      - ./config/themes:/opt/keycloak/themes
     ports:
       - "8080:8080"
     depends_on:

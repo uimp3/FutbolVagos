@@ -1,11 +1,56 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from django.http import HttpResponseRedirect
+from django.conf import settings
+from jose import jwt
+from jose.exceptions import JWTError
+
 from FutbolVagos.authentication import KeycloakAuthentication
 from .models import Cliente, Sede, Cancha, Reservacion, Factura, Trabajador
 from .serializers import ClienteSerializer, SedeSerializer, CanchaSerializer, ReservacionSerializer, FacturaSerializer, TrabajadorSerializer
+from .utils import keycloak_protect
 
 from drf_yasg.utils import swagger_auto_schema 
+
+def check_auth_and_redirect(request):
+    """
+    Vista que verifica si el usuario está autenticado y redirige según corresponda.
+    Si está autenticado, redirige a la página principal.
+    Si no está autenticado, redirige al login de Keycloak.
+    """
+    auth_header = request.META.get('HTTP_AUTHORIZATION', '')
+    
+    if auth_header and auth_header.startswith('Bearer '):
+        token = auth_header.split('Bearer ')[-1]
+        try:
+            # Validar el token
+            public_key = settings.KEYCLOAK_CONFIG['PUBLIC_KEY'].strip()
+            if not public_key.startswith('-----BEGIN PUBLIC KEY-----'):
+                public_key = f"-----BEGIN PUBLIC KEY-----\n{public_key}\n-----END PUBLIC KEY-----"
+            
+            jwt.decode(
+                token,
+                public_key,
+                algorithms=["RS256"],
+                options={
+                    "verify_signature": True,
+                    "verify_exp": True,
+                    "verify_aud": False
+                }
+            )
+            # Si el token es válido, redirigir a la página principal
+            return HttpResponseRedirect('http://localhost:4200/')
+        except JWTError:
+            pass
+    
+    # Si no hay token o es inválido, redirigir al login de Keycloak
+    keycloak_url = f"{settings.KEYCLOAK_CONFIG['SERVER_URL']}/realms/{settings.KEYCLOAK_CONFIG['REALM']}/protocol/openid-connect/auth"
+    redirect_uri = "http://localhost:4200/"
+    client_id = settings.KEYCLOAK_CONFIG['CLIENT_ID']
+    
+    auth_url = f"{keycloak_url}?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=openid"
+    return HttpResponseRedirect(auth_url)
 
 class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
